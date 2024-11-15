@@ -15,7 +15,7 @@ export const voiceNameMap: LanguageMap = {
             female: "Zhiyu",
         },
         openai: {
-            male: "alloy",
+            male: "ash",
             female: "shimmer"
         }
     },
@@ -33,7 +33,7 @@ export const voiceNameMap: LanguageMap = {
             female: "Ruth",
         },
         openai: {
-            male: "alloy",
+            male: "ash",
             female: "shimmer"
         }
     },
@@ -43,7 +43,7 @@ export const voiceNameMap: LanguageMap = {
             female: "ja-JP-NanamiNeural",
         },
         openai: {
-            male: "alloy",
+            male: "ash",
             female: "shimmer"
         }
     },
@@ -53,7 +53,7 @@ export const voiceNameMap: LanguageMap = {
             female: "ko-KR-JiMinNeural",
         },
         openai: {
-            male: "alloy",
+            male: "ash",
             female: "shimmer"
         }
     },
@@ -91,6 +91,21 @@ export const getGraphProperties = (
     }
 
     if (graphName == "camera_va_openai_azure") {
+        return {
+            "agora_rtc": {
+                "agora_asr_language": language,
+            },
+            "openai_chatgpt": {
+                "model": "gpt-4o",
+                ...localizationOptions,
+                "prompt": prompt,
+                "greeting": greeting,
+            },
+            "azure_tts": {
+                "azure_synthesis_voice_name": voiceNameMap[language]["azure"][voiceType]
+            }
+        }
+    } else if (graphName == "camera_va_openai_azure_rtm") {
         return {
             "agora_rtc": {
                 "agora_asr_language": language,

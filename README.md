@@ -11,6 +11,8 @@
 
 [![Discord TEN Community](https://dcbadge.vercel.app/api/server/VnPftUzAMJ)](https://discord.gg/VnPftUzAMJ)
 
+<a href="https://trendshift.io/repositories/11978" target="_blank"><img src="https://trendshift.io/api/badge/repositories/11978" alt="TEN-framework%2FTEN-Agent | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+
 [![GitHub watchers](https://img.shields.io/github/watchers/TEN-framework/ten-agent?style=social&label=Watch)](https://GitHub.com/TEN-framework/ten-agent/watchers/?WT.mc_id=academic-105485-koreyst)
 [![GitHub forks](https://img.shields.io/github/forks/TEN-framework/ten-agent?style=social&label=Fork)](https://GitHub.com/TEN-framework/ten-agent/network/?WT.mc_id=academic-105485-koreyst)
 [![GitHub stars](https://img.shields.io/github/stars/TEN-framework/ten-agent?style=social&label=Star)](https://GitHub.com/TEN-framework/ten-agent/stargazers/?WT.mc_id=academic-105485-koreyst)
@@ -34,28 +36,31 @@
 <br>
 <h2>🎉 TEN Agent with OpenAI Realtime API and RTC</h2>
 
-Combining OpenAI Realtime API for ultra-low latency with RTC’s AI noise suppression ensures smooth, high-quality interactions. On top of that, the seamless integration of weather and news tools makes TEN Agent even more versatile. Try it now at [agent.theten.ai](https://agent.theten.ai).
+Try OpenAI Realtime API and RTC at [agent.theten.ai](https://agent.theten.ai).
+
+Combining OpenAI Realtime API for ultra-low latency with RTC’s AI noise suppression ensures smooth, high-quality interactions. On top of that, the seamless integration of weather and news tools makes TEN Agent even more versatile. 
 
 ![TEN Agent with OpenAI Realtime API and RTC](https://github.com/TEN-framework/docs/blob/main/assets/gif/weather-and-news.gif?raw=true)
 
 <br>
 <h2>TEN Agent Features</h2>
 
-Aside from being world's the first agent to integrate the OpenAI Realtime API and RTC, TEN Agent also offers the following features:
+* **OpenAI Realtime API and RTC integration**:
+TEN Agent is the world-class multimodal AI agent to integrate the OpenAI Realtime API and RTC.
 
-1. **High-Performance Real-Time Multimodal Interactions**:
+* **High-Performance Real-Time Multimodal Interactions**:
 Offers high-performance, low-latency solutions for complex audio-visual AI applications.
 
-2. **Multi-Language and Multi-Platform Support** :
+* **Multi-Language and Multi-Platform Support** :
 Supports extension development in C++, Go, Python, etc. Runs on Windows, Mac, Linux, and mobile devices.
 
-3. **Edge-Cloud Integration**:
+* **Edge-Cloud Integration**:
 Flexibly combines edge and cloud-deployed extensions, balancing privacy, cost, and performance.
 
-4. **Flexibility Beyond Model Limitations**:
+* **Flexibility Beyond Model Limitations**:
 Easily build complex AI applications through simple drag-and-drop programming, integrating audio-visual tools, databases, RAG, and more.
 
-5. **Real-Time Agent State Management**:
+* **Real-Time Agent State Management**:
 Manages and adjusts agent behavior in real-time for dynamic responsiveness.
 
 <br>
@@ -90,8 +95,9 @@ And, if you choose to use OpenAI Realtime API, then the Vision and RAG won't be 
 
 #### Keys
 - Agora [ App ID ](https://docs.agora.io/en/video-calling/get-started/manage-agora-account?platform=web#create-an-agora-project) and [ App Certificate ](https://docs.agora.io/en/video-calling/get-started/manage-agora-account?platform=web#create-an-agora-project)(certificate only required if enabled in the Agora Console)
-- Azure [SST(ASR)](https://azure.microsoft.com/en-us/products/ai-services/speech-to-text) and [TTS](https://azure.microsoft.com/en-us/products/ai-services/text-to-speech) API keys
 - [OpenAI](https://openai.com/index/openai-api/) API key
+- [ Deepgram ](https://deepgram.com/) ASR and [ FishAudio ](https://fish.audio/) TTS
+<!-- - Azure [SST(ASR)](https://azure.microsoft.com/en-us/products/ai-services/speech-to-text) and [TTS](https://azure.microsoft.com/en-us/products/ai-services/text-to-speech) API keys -->
 
 #### Installation
   - [Docker](https://www.docker.com/) / [Docker Compose](https://docs.docker.com/compose/)
@@ -101,45 +107,54 @@ And, if you choose to use OpenAI Realtime API, then the Vision and RAG won't be 
   - CPU >= 2 Core
   - RAM >= 4 GB
 
-#### Docker setting on Apple Silicon
-You will need to uncheck "Use Rosetta for x86_64/amd64 emulation on Apple Silicon" option for Docker if you are on Apple Silicon, otherwise the server is not going to work.
+#### MacOS: Docker setting on Apple Silicon
+
+You will need to uncheck "Use Rosetta for x86_64/amd64 emulation on Apple Silicon" option for Docker if you are on Apple Silicon. However, please note that build and connection times will be a little slower due to emulation when running on ARM systems. Once deployed to x64 (e.g. your Linux server) it will be much faster.
+
 
 ![Docker Setting](https://github.com/TEN-framework/docs/blob/main/assets/gif/docker_setting.gif?raw=true)
+
+#### Windows: Configuring Git to handle line endings
+To avoid problems in `make run-server` later, you can configure Git to properly handle line endings on Windows.([more here](https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings?platform=windows))
+
+```bash
+git config --global core.autocrlf true
+```
 
 ### Next step
 
 #### 1. Modify config files
-In the root of the project, use `cp` command to create `.env` from the example.
+In the root of the project, use `cp` command to create `.env` from the [ .env.example ](https://github.com/TEN-framework/ten-agent/blob/main/.env.example).
 
-It will be used to store information for `docker compose` later.
+It will be used to store environment variables for `docker compose` later, and if you change it, you will need to `source .env` again in the container for the changes to take effect.
 ```bash
 cp ./.env.example ./.env
 ```
 
 #### 2. Setup API keys
-Open the `.env` file and fill in the `keys` and `regions`. 
+Open the `.env` file and fill in the `keys`. We recommend using [ Deepgram ASR ](https://deepgram.com/) and [ FishAudio TTS ](https://fish.audio/) as they are free to sign up for and offer free credits. Of course, you can also use other services, see the list in [.env.example](https://github.com/TEN-framework/ten-agent/blob/main/.env.example).
 ```bash
 # Agora App ID 
 # Agora App Certificate(only required if enabled in the Agora Console)
 AGORA_APP_ID=
 AGORA_APP_CERTIFICATE=
 
-# Azure STT key and region
-AZURE_STT_KEY=
-AZURE_STT_REGION=
-
-# Azure TTS key and region
-AZURE_TTS_KEY=
-AZURE_TTS_REGION=
-
-# OpenAI API key
 OPENAI_API_KEY=
+
+DEEPGRAM_API_KEY=
+
+FISH_AUDIO_TTS_KEY=
 ```
 
 #### 3. Start agent development containers
 In the same directory, run the `docker compose up` command to compose containers:
 ```bash
 docker compose up
+```
+
+Or using the `docker compose up -d` command, start the container in detached mode.([more here](https://doc.theten.ai/ten-agent/setting_up_vscode_for_development_inside_container))
+```bash
+docker compose up -d
 ```
 
 #### 4. Enter container and build agent
@@ -161,12 +176,11 @@ make run-server
 #### TEN Agent
 Open up [localhost:3000]( http://localhost:3000 ) in browser to play the TEN Agent.
 
-#### TEN Agent with OpenAI Realtime API
-Open up [localhost:3002]( http://localhost:3002 ) in browser to play the TEN Agent with OpenAI Realtime API.
-
 #### TEN Graph Designer
 
 Open up another tab go to [localhost:3001]( http://localhost:3001 ), and use Graph Designer to create, connect and edit extensions on canvas.
+
+Once you save the graph, you can return to [localhost:3000]( http://localhost:3000 ) and select the corresponding graph to view the changes.
 
 ![TEN Graph Designer](https://github.com/TEN-framework/docs/blob/main/assets/gif/hello_world_python.gif?raw=true)
 
